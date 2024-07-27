@@ -136,7 +136,7 @@ export default function Home() {
             </motion.div>
 
             {/* main section */}
-            <div className="z-30 b w-[50%] mt-6 md:mt-40 flex flex-col items-center text-center md:text-left">
+            <div className="z-30 b w-[100%] md:w-[50%] mt-6 md:mt-40 flex flex-col items-center text-center md:text-left">
               {/* Heading section */}
               <motion.div
                 variants={container}
