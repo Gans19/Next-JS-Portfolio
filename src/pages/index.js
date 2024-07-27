@@ -74,6 +74,32 @@ function ParallaxText({ children, baseVelocity = 100 }) {
 }
 
 export default function Home() {
+
+  
+
+
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.1,
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
+  const name = "Selva Ganesh G".split("").map(char => char === " " ? "\u00A0" : char);
+
   return (
     <>
       <Head>
@@ -86,13 +112,13 @@ export default function Home() {
         <div className="body">
           <div className="flex flex-col md:flex-row  justify-around items-center h-full md:px-8 w-full">
             <motion.div
-              className="md:order-2 flex  w-[50%]  justify-center  z-10 mt-16 md:mt-16"
+              className="md:order-2 flex w-[100%]  md:w-[50%]  justify-center  z-10 mt-20 md:mt-16"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 1.5, duration: 1 }}
             >
-              <div class="card-wrapper h-[300px] w-[250px] md:h-[500px] md:w-[400px]">
+              <div class="card-wrapper h-[350px] w-[450px] md:h-[500px] md:w-[400px]">
                 <div class="card-content flex items-center justify-center text-xs">
                   <Image
                     alt="logo"
@@ -113,23 +139,37 @@ export default function Home() {
             <div className="z-30 b w-[50%] mt-6 md:mt-40 flex flex-col items-center text-center md:text-left">
               {/* Heading section */}
               <motion.div
+                variants={container}
                 initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5 }}
-                variants={{
-                  hidden: { opacity: 0, x: -50 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-                className=" "
+                animate="visible"
               >
-                <p className="text-4xl  font-mono font-extrabold md:text-6xl z-10">
+                <div className="z-30 b  mt-6 md:mt-40 flex flex-col items-center text-center md:text-left">
+                  <motion.div
+                    variants={container}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    <p className="text-2xl font-mono font-extrabold  md:text-6xl z-10">
+                      {name.map((char, index) => (
+                        <motion.span
+                          key={index}
+                          className="inline-block  font-mono"
+                          variants={item}
+                        >
+                          {char}
+                        </motion.span>
+                      ))}
+                    </p>
+                  </motion.div>
+                </div>
+
+                {/* <p className="text-4xl  font-mono font-extrabold md:text-6xl z-10">
                   Selva
                   <span className="xs:relative text-white font-mono font-extrabold z-20 before:absolute before:-left-[25px] before:-top-[70px] before:z-[-1]">
                     {" "}
                     Ganesh G
                   </span>
-                </p>
+                </p> */}
                 {/* <p className="mt-4 md:mt-10 mb-4 md:mb-7 text-sm md:text-base">
                   Software Engineer
                 </p> */}

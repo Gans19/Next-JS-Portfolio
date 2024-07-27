@@ -27,7 +27,7 @@ export default function App({ Component, pageProps, router }) {
 
   return (
     <div className="main">
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {showAnimation ? (
           <EntranceAnimation
             key="entrance"

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Nav from './nav';
 import { AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+// import AnimatedCursor from '../AnimatedCursor';
 
 export default function Header() {
 
@@ -12,11 +13,12 @@ export default function Header() {
 
   useEffect( () => {
     if(isActive) setIsActive(false)
-  }, [pathname])
+  }, [pathname,isActive])
 
   return (
     <>
     <div className={styles.main}>
+       {/* <AnimatedCursor /> */}
 
       <div className={styles.header}>
         <div onClick={() => {setIsActive(!isActive)}} className={styles.button}>
