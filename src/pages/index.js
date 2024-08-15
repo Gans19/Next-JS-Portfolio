@@ -13,7 +13,6 @@ import {
   useAnimationFrame,
   wrap,
 } from "framer-motion";
-// import { wrap } from "@motionone/utils";
 import Link from "next/link";
 
 function ParallaxText({ children, baseVelocity = 100 }) {
@@ -28,21 +27,12 @@ function ParallaxText({ children, baseVelocity = 100 }) {
     clamp: false,
   });
 
-  /**
-   * This is a magic wrapping for the length of the text - you
-   * have to replace for wrapping that works for you or dynamically
-   * calculate
-   */
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
   const directionFactor = useRef(1);
   useAnimationFrame((t, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
-    /**
-     * This is what changes the direction of the scroll once we
-     * switch scrolling directions.
-     */
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
     } else if (velocityFactor.get() > 0) {
@@ -54,13 +44,6 @@ function ParallaxText({ children, baseVelocity = 100 }) {
     baseX.set(baseX.get() + moveBy);
   });
 
-  /**
-   * The number of times to repeat the child text should be dynamically calculated
-   * based on the size of the text and viewport. Likewise, the x motion value is
-   * currently wrapped between -20 and -45% - this 25% is derived from the fact
-   * we have four children (100% / 4). This would also want deriving from the
-   * dynamically generated number of children.
-   */
   return (
     <div className="parallax">
       <motion.div className="scroller" style={{ x }}>
@@ -74,10 +57,6 @@ function ParallaxText({ children, baseVelocity = 100 }) {
 }
 
 export default function Home() {
-
-  
-
-
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -109,73 +88,45 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Curve>
-        <div className="body">
-          <div className="flex flex-col md:flex-row  justify-around items-center h-full md:px-8 w-full">
+        <div className="body h-screen flex flex-col justify-center">
+          <div className="flex flex-col md:flex-row justify-around items-center h-full w-full">
             <motion.div
-              className="md:order-2 flex w-[100%]  md:w-[50%]  justify-center  z-10 mt-20 md:mt-16"
+              className="md:order-2 flex w-full md:w-1/2 justify-center z-10 mt-4 md:mt-4"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 1.5, duration: 1 }}
             >
-              <div class="card-wrapper h-[350px] w-[450px] md:h-[500px] md:w-[400px]">
-                <div class="card-content flex items-center justify-center text-xs">
+              <div className="card-wrapper h-[350px] w-[450px] md:h-[500px] md:w-[400px]">
+                <div className="card-content flex items-center justify-center text-xs">
                   <Image
                     alt="logo"
-                    className=" rounded-2xl object-cover h-[calc(100%-1px)]"
+                    className="rounded-2xl object-cover h-[calc(100%-1px)]"
                     src={Logo}
                   />
                 </div>
               </div>
-
-              {/* <div className="card-wrapper h-[300px] w-[250px] md:h-[450px] md:w-[400px]">
-                <div className="card-content flex items-center justify-center text-xs">
-                  <Image alt="logo"  src={Logo} />
-                </div>
-              </div> */}
             </motion.div>
 
-            {/* main section */}
-            <div className="z-30 b w-[100%] md:w-[50%] mt-6 md:mt-40 flex flex-col items-center text-center md:text-left">
-              {/* Heading section */}
+            <div className="z-30 w-full md:w-1/2 mt-6 md:mt-4 flex flex-col items-center text-center md:text-left">
               <motion.div
                 variants={container}
                 initial="hidden"
                 animate="visible"
               >
-                <div className="z-30 b  mt-6 md:mt-40 flex flex-col items-center text-center md:text-left">
-                  <motion.div
-                    variants={container}
-                    initial="hidden"
-                    animate="visible"
-                  >
-                    <p className="text-2xl font-mono font-extrabold  md:text-6xl z-10">
-                      {name.map((char, index) => (
-                        <motion.span
-                          key={index}
-                          className="inline-block  font-mono"
-                          variants={item}
-                        >
-                          {char}
-                        </motion.span>
-                      ))}
-                    </p>
-                  </motion.div>
-                </div>
-
-                {/* <p className="text-4xl  font-mono font-extrabold md:text-6xl z-10">
-                  Selva
-                  <span className="xs:relative text-white font-mono font-extrabold z-20 before:absolute before:-left-[25px] before:-top-[70px] before:z-[-1]">
-                    {" "}
-                    Ganesh G
-                  </span>
-                </p> */}
-                {/* <p className="mt-4 md:mt-10 mb-4 md:mb-7 text-sm md:text-base">
-                  Software Engineer
-                </p> */}
+                <p className="text-2xl md:text-6xl font-mono font-extrabold z-10">
+                  {name.map((char, index) => (
+                    <motion.span
+                      key={index}
+                      className="inline-block font-mono"
+                      variants={item}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </p>
               </motion.div>
 
-              {/* call to action section */}
               <motion.div
                 className="flex flex-col md:flex-row items-center mt-5 md:justify-start"
                 initial="hidden"
@@ -188,7 +139,7 @@ export default function Home() {
                 }}
               >
                 <a
-                  className="bg-gradient-rainblue text-deep-blue rounded-sm py-3 px-7 font-semibold hover:bg-blue hover:text-white transition duration-500 mb-4 md:mb-0 "
+                  className="bg-gradient-rainblue text-deep-blue rounded-sm py-3 px-7 font-semibold hover:bg-blue hover:text-white transition duration-500 mb-4 md:mb-0"
                   href="https://drive.google.com/file/d/1CW4NAQRwqvVXvxzlEQkkCBg668V5o6Zj/view?usp=sharing"
                   target="_blank"
                 >
@@ -196,7 +147,6 @@ export default function Home() {
                 </a>
                 <Link
                   className="rounded-r-sm bg-gradient-rainblue py-0.5 pr-0.5"
-                  // onClick={() => setSelectedPage("projects")}
                   href="/contact"
                 >
                   <div className="bg-deep-blue hover:text-red text-white transition duration-500 py-2.5 w-full h-full flex items-center justify-center px-10 font-playfair">
@@ -216,16 +166,15 @@ export default function Home() {
                   visible: { opacity: 1, x: 0 },
                 }}
               >
-                {/* <SocialMediaIcons /> */}
+                {/* SocialMediaIcons Component */}
               </motion.div>
             </div>
           </div>
         </div>
-        <div className=" mt-4">
-          <ParallaxText baseVelocity={-5}>Software developer</ParallaxText>
+        {/* <div className="mt-2">
+          <ParallaxText baseVelocity={-5}>Software Developer</ParallaxText>
           <ParallaxText baseVelocity={5}>Mobile App Developer</ParallaxText>
-          {/* <ParallaxText baseVelocity={5}>Scroll velocity</ParallaxText> */}
-        </div>
+        </div> */}
       </Curve>
     </>
   );
