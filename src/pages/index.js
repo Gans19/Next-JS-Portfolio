@@ -1,8 +1,9 @@
 import Head from "next/head";
 import Curve from "@/components/Layout/Curve";
 import Logo from "./../assets/3.jpeg";
+import Selva from "./../assets/Selva.png";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useScroll,
@@ -14,6 +15,34 @@ import {
   wrap,
 } from "framer-motion";
 import Link from "next/link";
+
+
+const CircularText = ({ text = "SELVA GANESH", radius = 100 }) => {
+  const circleContainerRef = useRef(null);
+
+  useEffect(() => {
+    const container = circleContainerRef.current;
+    const characters = text.split("");
+    const angle = 360 / characters.length;
+
+    // Clear any existing children
+    container.innerHTML = "";
+
+    characters.forEach((char, i) => {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.style.position = "absolute";
+      span.style.transform = `rotate(${i * angle}deg) translate(${radius}px) rotate(-${i * angle}deg)`;
+      container.appendChild(span);
+    });
+  }, [text, radius]);
+
+  return (
+    <div className="circle-container">
+      <div className="circle-text" ref={circleContainerRef}></div>
+    </div>
+  );
+};
 
 function ParallaxText({ children, baseVelocity = 100 }) {
   const baseX = useMotionValue(0);
@@ -77,7 +106,9 @@ export default function Home() {
     },
   };
 
-  const name = "Selva Ganesh G".split("").map(char => char === " " ? "\u00A0" : char);
+  const name = "Selva Ganesh G"
+    .split("")
+    .map((char) => (char === " " ? "\u00A0" : char));
 
   return (
     <>
@@ -88,93 +119,45 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Curve>
-        <div className="body h-screen flex flex-col justify-center">
-          <div className="flex flex-col md:flex-row justify-around items-center h-full w-full">
-            <motion.div
-              className="md:order-2 flex w-full md:w-1/2 justify-center z-10 mt-4 md:mt-4"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 1.5, duration: 1 }}
-            >
-              <div className="card-wrapper h-[350px] w-[450px] md:h-[500px] md:w-[400px]">
-                <div className="card-content flex items-center justify-center text-xs">
-                  <Image
-                    alt="logo"
-                    className="rounded-2xl object-cover h-[calc(100%-1px)]"
-                    src={Logo}
-                  />
+        <div className="body h-[95vh]   flex flex-col justify-center">
+          <div className=" flex flex-row  w-full h-full">
+            <div className=" flex flex-col h-full w-[65%] mr-10">
+              <div className=" w-full flex justify-around flex-row h-[30%] p-4 rounded-xl bg-white">
+                <div className=" h-full bg-red border-r  w-[30%]">
+                  <div className=" h-[100%] w-[100%]">
+               <Image src={Selva} className=" object-cover h-[100%] w-[100%]"  alt="" />
+                  </div>
+                </div>
+                <div className="  h-full w-[70%] flex flex-col mx-8">
+                  <div className="  w-full h-[50%] flex justify-end   text-right">
+                    <p className="tracking-widest font-[orbitron] text-black  h-[100%] flex justify-start items-center w-[100%] text-[54px]  text-right uppercase">
+                      SELVA
+                    </p>
+                  </div>
+                  <div className="  w-full h-[50%] flex justify-end   text-right">
+                    <p className="tracking-widest font-[orbitron] text-black  h-[100%] flex justify-end items-center w-[100%] text-[54px]  text-right uppercase">
+                      Ganesh G
+                    </p>
+                  </div>
                 </div>
               </div>
-            </motion.div>
 
-            <div className="z-30 w-full md:w-1/2 mt-6 md:mt-4 flex flex-col items-center text-center md:text-left">
-              <motion.div
-                variants={container}
-                initial="hidden"
-                animate="visible"
-              >
-                <p className="text-2xl md:text-6xl font-mono font-extrabold z-10">
-                  {name.map((char, index) => (
-                    <motion.span
-                      key={index}
-                      className="inline-block font-mono"
-                      variants={item}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </p>
-              </motion.div>
+              <div className=" w-full h-[70%] py-4 flex flex-row ">
+<div className=' rounded-xl bg-white w-[50%] h-full mr-2  '></div>
+<div className=' w-[50%] h-full ml-2 flex flex-col'>
+  <div className="  w-full h-[50%] rounded-xl bg-white mb-2"></div>
+  <div className="  w-full h-[50%] rounded-xl bg-white mt-2"></div>
+</div>
 
-              <motion.div
-                className="flex flex-col md:flex-row items-center mt-5 md:justify-start"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                variants={{
-                  hidden: { opacity: 0, x: -50 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-              >
-                <a
-                  className="bg-gradient-rainblue text-deep-blue rounded-sm py-3 px-7 font-semibold hover:bg-blue hover:text-white transition duration-500 mb-4 md:mb-0"
-                  href="https://drive.google.com/file/d/1CW4NAQRwqvVXvxzlEQkkCBg668V5o6Zj/view?usp=sharing"
-                  target="_blank"
-                >
-                  Download CV
-                </a>
-                <Link
-                  className="rounded-r-sm bg-gradient-rainblue py-0.5 pr-0.5"
-                  href="/contact"
-                >
-                  <div className="bg-deep-blue hover:text-red text-white transition duration-500 py-2.5 w-full h-full flex items-center justify-center px-10 font-playfair">
-                    See Projects
-                  </div>
-                </Link>
-              </motion.div>
-
-              <motion.div
-                className="flex mt-5 justify-center md:justify-start"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                variants={{
-                  hidden: { opacity: 0, x: -50 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-              >
-                {/* SocialMediaIcons Component */}
-              </motion.div>
+              </div>
             </div>
+            <div className=" bg-slate-700 h-full w-[35%]"></div>
+          </div>
+          <div className="mt-4 ">
+            <ParallaxText baseVelocity={-5}>Software Developer</ParallaxText>
+            <ParallaxText baseVelocity={5}>Mobile App Developer</ParallaxText>
           </div>
         </div>
-        {/* <div className="mt-2">
-          <ParallaxText baseVelocity={-5}>Software Developer</ParallaxText>
-          <ParallaxText baseVelocity={5}>Mobile App Developer</ParallaxText>
-        </div> */}
       </Curve>
     </>
   );

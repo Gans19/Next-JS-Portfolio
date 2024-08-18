@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@webpunk/circular-text": "^1.3.4",
     "framer-motion": "^10.16.12",
     "next": "14.0.3",
     "react": "^18",

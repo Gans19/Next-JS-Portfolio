@@ -13,7 +13,7 @@
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        background-color: var(--black);
+        background-color: var(--accent);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -29,8 +29,9 @@
             display: block;
             height: 1px;
             width: 40%;
+            font-weight: bold;
             margin: auto;
-            background-color: white;
+            background-color: black;
             position: relative;
             transition: transform 0.3s;
             
@@ -49,12 +50,14 @@
 
         &::after{
             transform: rotate(45deg);
+            // background-color: black;
             top: -1px;
         }
 
         &::before{
             transform: rotate(-45deg);
             top: 0px;
+          
         }
         
     }

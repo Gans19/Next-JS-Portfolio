@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Header from "@/components/header";
 import EntranceAnimation from "@/components/enter/EnterAnimation";
+import About from "./about";
 
 const menuVariants = {
   hidden: { opacity: 0, y: -20 },
