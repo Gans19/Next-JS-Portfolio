@@ -15,6 +15,7 @@ import img9 from "./../assets/9.png";
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { compareAsc, format } from "date-fns";
 import {
   motion,
   useScroll,
@@ -48,55 +49,106 @@ const SimpleSlider = () => {
     pauseOnHover: true,
   };
 
-
-  const overlayClasses = "absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 hover:opacity-50 flex justify-center items-center transition-opacity duration-300";
+  const overlayClasses =
+    "absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 hover:opacity-50 flex justify-center items-center transition-opacity duration-300";
 
   return (
     <div className="bg-green-400 w-full h-full overflow-hidden rounded-lg">
       <Slider {...settings} className="h-[800px] rounded-lg overflow-hidden">
-        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
-          <Image src={img9} alt={""} className="object-cover h-[100%] w-[100%]" />
+        <div className="relative flex justify-center items-center overflow-hidden h-[200px] w-full">
+          <Image
+            src={img9}
+            alt={""}
+            className="object-contain h-[100%] w-[100%]"
+          />
           <div className={overlayClasses}>
-            <a href="https://example.com/project1" className="text-black hover:bg-black  text-xl font-bold">View Project</a>
+            <a
+              href="https://example.com/project1"
+              className="text-black hover:bg-black  text-xl font-bold"
+            >
+              View Project
+            </a>
           </div>
         </div>
-        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
-          <Image src={img8} alt={""} className="object-cover h-[100%] w-[100%]" />
+        <div className="relative flex justify-center items-center overflow-hidden h-[200px] w-full">
+          <Image
+            src={img8}
+            alt={""}
+            className="object-contain h-[100%] w-[100%]"
+          />
           <div className={overlayClasses}>
-            <a href="https://example.com/project2" className="text-black text-xl font-bold">View Project</a>
+            <a
+              href="https://example.com/project2"
+              className="text-black text-xl font-bold"
+            >
+              View Project
+            </a>
           </div>
         </div>
-        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
-          <Image src={img7} alt={""} className="object-cover h-[100%] w-[100%]" />
+        <div className="relative flex justify-center items-center overflow-hidden h-[200px] w-full">
+          <Image
+            src={img7}
+            alt={""}
+            className="object-contain h-[100%] w-[100%]"
+          />
           <div className={overlayClasses}>
-            <a href="https://example.com/project3" className="text-black text-xl font-bold">View Project</a>
+            <a
+              href="https://example.com/project3"
+              className="text-black text-xl font-bold"
+            >
+              View Project
+            </a>
           </div>
         </div>
-        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
-          <Image src={img2} alt={""} className="object-cover h-[100%] w-[100%]" />
+        <div className="relative flex justify-center items-center overflow-hidden h-[200px] w-full">
+          <Image
+            src={img2}
+            alt={""}
+            className="object-contain h-[100%] w-[100%]"
+          />
           <div className={overlayClasses}>
-            <a href="https://example.com/project4" className="text-black text-xl font-bold">View Project</a>
+            <a
+              href="https://example.com/project4"
+              className="text-black text-xl font-bold"
+            >
+              View Project
+            </a>
           </div>
         </div>
-        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
-          <Image src={img5} alt={""} className="object-cover h-[100%] w-[100%]" />
+        <div className="relative flex justify-center items-center overflow-hidden h-[200px] w-full">
+          <Image
+            src={img5}
+            alt={""}
+            className="object-contain h-[100%] w-[100%]"
+          />
           <div className={overlayClasses}>
-            <a href="https://example.com/project5" className="text-black text-xl font-bold">View Project</a>
+            <a
+              href="https://example.com/project5"
+              className="text-black text-xl font-bold"
+            >
+              View Project
+            </a>
           </div>
         </div>
-        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
-          <Image src={img4} alt={""} className="object-cover h-[100%] w-[100%]" />
+        <div className="relative flex justify-center items-center overflow-hidden h-[200px] w-full">
+          <Image
+            src={img4}
+            alt={""}
+            className="object-contain h-[100%] w-[100%]"
+          />
           <div className={overlayClasses}>
-            <a href="https://example.com/project6" className="text-black text-xl font-bold">View Project</a>
+            <a
+              href="https://example.com/project6"
+              className="text-black text-xl font-bold"
+            >
+              View Project
+            </a>
           </div>
         </div>
       </Slider>
     </div>
   );
 };
-
-
-
 
 const FlipText = ({ children }) => {
   return (
@@ -176,6 +228,33 @@ function ParallaxText({ children, baseVelocity = 100 }) {
 
 export default function Home() {
   const [enter, setEnter] = useState(false);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const setIntervalId = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => {
+      clearInterval(setIntervalId);
+    };
+  }, []);
+
+  function formatTime() {
+    let hour = time.getHours();
+
+    const minute = time.getMinutes();
+
+    const second = time.getSeconds();
+
+    const meridian = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12;
+    return `${padZero(hour)}:${padZero(minute)}:${padZero(second)} ${meridian}`;
+  }
+
+  function padZero(time) {
+    return (time < 10 ? "0" : "") + time;
+  }
 
   const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -293,8 +372,22 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="w-full md:w-[50%] h-[50%] md:h-full ml-0 md:ml-2 flex flex-col">
-                  <div className="w-full h-[50%] md:h-[50%] rounded-xl bg-white mb-2"></div>
-                  <div className="w-full h-[50%] md:h-[50%] rounded-xl bg-white mt-2"></div>
+                  <div className="w-full h-[50%] md:h-[50%] rounded-xl bg-white mb-2 text-black">
+                    <div className=" flex flex-col justify-center items-center h-full">
+                      <div className=" relative text-white text-[50px] md:text-[55px] font-bold font-mono">
+                        <div className=" text-gray-900 ">{formatTime()}</div>
+                        {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 blur-lg opacity-50 rounded-xl"></div> */}
+                        <div className=" mt-3 text-xl md:text-3xl font-semibold text-center  text-gray-900">
+                          {format(time,"eee, dd MMM")}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-full h-[50%] md:h-[50%] rounded-xl bg-white mt-2">
+                  <div className="h-full">
+                    <SimpleSlider />
+                  </div>
+                  </div>
                 </div>
               </div>
             </div>
