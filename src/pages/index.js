@@ -2,8 +2,19 @@ import Head from "next/head";
 import Curve from "@/components/Layout/Curve";
 import Logo from "./../assets/3.jpeg";
 import Selva from "./../assets/Selva.png";
+import Selva2 from "./../assets/Selva2.png";
+import img1 from "./../assets/1.png";
+import img2 from "./../assets/2.png";
+// import img3 from "./../assets/3.png";
+import img4 from "./../assets/4.png";
+import img5 from "./../assets/5.png";
+// import img6 from "./../assets/6.png";
+import img7 from "./../assets/7.png";
+import img8 from "./../assets/8.png";
+import img9 from "./../assets/9.png";
+
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -15,32 +26,110 @@ import {
   wrap,
 } from "framer-motion";
 import Link from "next/link";
+import { scale } from "@/components/header/anim";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import Slider from "react-slick";
+
+// import Slider from "react-slick";
+// import Image from "next/image";
+
+const SimpleSlider = () => {
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows: false,
+    pauseOnHover: true,
+  };
 
 
-const CircularText = ({ text = "SELVA GANESH", radius = 100 }) => {
-  const circleContainerRef = useRef(null);
-
-  useEffect(() => {
-    const container = circleContainerRef.current;
-    const characters = text.split("");
-    const angle = 360 / characters.length;
-
-    // Clear any existing children
-    container.innerHTML = "";
-
-    characters.forEach((char, i) => {
-      const span = document.createElement("span");
-      span.textContent = char;
-      span.style.position = "absolute";
-      span.style.transform = `rotate(${i * angle}deg) translate(${radius}px) rotate(-${i * angle}deg)`;
-      container.appendChild(span);
-    });
-  }, [text, radius]);
+  const overlayClasses = "absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 hover:opacity-50 flex justify-center items-center transition-opacity duration-300";
 
   return (
-    <div className="circle-container">
-      <div className="circle-text" ref={circleContainerRef}></div>
+    <div className="bg-green-400 w-full h-full overflow-hidden rounded-lg">
+      <Slider {...settings} className="h-[800px] rounded-lg overflow-hidden">
+        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
+          <Image src={img9} alt={""} className="object-cover h-[100%] w-[100%]" />
+          <div className={overlayClasses}>
+            <a href="https://example.com/project1" className="text-black hover:bg-black  text-xl font-bold">View Project</a>
+          </div>
+        </div>
+        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
+          <Image src={img8} alt={""} className="object-cover h-[100%] w-[100%]" />
+          <div className={overlayClasses}>
+            <a href="https://example.com/project2" className="text-black text-xl font-bold">View Project</a>
+          </div>
+        </div>
+        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
+          <Image src={img7} alt={""} className="object-cover h-[100%] w-[100%]" />
+          <div className={overlayClasses}>
+            <a href="https://example.com/project3" className="text-black text-xl font-bold">View Project</a>
+          </div>
+        </div>
+        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
+          <Image src={img2} alt={""} className="object-cover h-[100%] w-[100%]" />
+          <div className={overlayClasses}>
+            <a href="https://example.com/project4" className="text-black text-xl font-bold">View Project</a>
+          </div>
+        </div>
+        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
+          <Image src={img5} alt={""} className="object-cover h-[100%] w-[100%]" />
+          <div className={overlayClasses}>
+            <a href="https://example.com/project5" className="text-black text-xl font-bold">View Project</a>
+          </div>
+        </div>
+        <div className="relative flex justify-center items-center overflow-hidden h-[600px] w-full">
+          <Image src={img4} alt={""} className="object-cover h-[100%] w-[100%]" />
+          <div className={overlayClasses}>
+            <a href="https://example.com/project6" className="text-black text-xl font-bold">View Project</a>
+          </div>
+        </div>
+      </Slider>
     </div>
+  );
+};
+
+
+
+
+const FlipText = ({ children }) => {
+  return (
+    <motion.p
+      initial="initial"
+      whileHover="whileHover"
+      className="relative whitespace-nowrap overflow-hidden block uppercase font-black"
+    >
+      <motion.span
+        variants={{
+          initial: {
+            y: 0,
+          },
+          whileHover: {
+            y: "-100%",
+          },
+        }}
+      >
+        {children}
+      </motion.span>
+      <motion.span
+        variants={{
+          initial: {
+            y: 0,
+          },
+          whileHover: {
+            y: "-100%",
+          },
+        }}
+      >
+        {children}
+      </motion.span>
+    </motion.p>
   );
 };
 
@@ -86,6 +175,8 @@ function ParallaxText({ children, baseVelocity = 100 }) {
 }
 
 export default function Home() {
+  const [enter, setEnter] = useState(false);
+
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -119,41 +210,106 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Curve>
-        <div className="body h-[95vh]   flex flex-col justify-center">
-          <div className=" flex flex-row  w-full h-full">
-            <div className=" flex flex-col h-full w-[65%] mr-10">
-              <div className=" w-full flex justify-around flex-row h-[30%] p-4 rounded-xl bg-white">
-                <div className=" h-full bg-red border-r  w-[30%]">
-                  <div className=" h-[100%] w-[100%]">
-               <Image src={Selva} className=" object-cover h-[100%] w-[100%]"  alt="" />
-                  </div>
+        <div className="body p-[80px] md:h-screen  flex flex-col justify-center">
+          <div className="flex flex-col md:flex-row w-full h-full">
+            <div className="flex flex-col h-full w-full md:w-[65%] mr-0 md:mr-10">
+              <motion.div
+                onMouseEnter={() => setEnter(true)}
+                onMouseLeave={() => setEnter(false)}
+                className={`w-full flex justify-around hover:cursor-pointer flex-row h-[30%] p-4 rounded-xl ${
+                  enter ? "border border-white" : ""
+                } bg-white overflow-hidden relative`}
+              >
+                <motion.div
+                  initial={{
+                    x: 0,
+                    y: 0,
+                  }}
+                  animate={{
+                    scale: enter ? 4 : 1,
+                    x: 1,
+                    y: 1,
+                    backgroundColor: enter ? "#000" : "#fff",
+                    border: "1px solid #fff",
+                    borderColor: "#fff",
+                  }}
+                  exit={{
+                    x: 0,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute w-full h-full top-0 left-0 z-10"
+                />
+                <div className="h-full border-r w-[30%] relative z-20">
+                  <motion.div
+                    transition={{
+                      duration: 0.4,
+                      ease: "easeInOut",
+                    }}
+                    className="h-[100%] w-[100%]"
+                  >
+                    <Image
+                      src={enter ? Selva2 : Selva}
+                      className="object-cover h-[100%] w-[100%]"
+                      alt=""
+                    />
+                  </motion.div>
                 </div>
-                <div className="  h-full w-[70%] flex flex-col mx-8">
-                  <div className="  w-full h-[50%] flex justify-end   text-right">
-                    <p className="tracking-widest font-[orbitron] text-black  h-[100%] flex justify-start items-center w-[100%] text-[54px]  text-right uppercase">
+                <motion.div className="overflow-hidden h-full w-[70%] flex flex-col mx-8 relative z-20">
+                  <div className="w-full h-[50%] flex justify-end text-right">
+                    <motion.p
+                      animate={{
+                        color: enter ? "#fff" : "#000",
+                      }}
+                      className="tracking-widest font-[orbitron] text-black h-[100%] flex justify-start items-center w-[100%] text-[24px] md:text-[54px] text-right uppercase"
+                    >
                       SELVA
-                    </p>
+                    </motion.p>
                   </div>
-                  <div className="  w-full h-[50%] flex justify-end   text-right">
-                    <p className="tracking-widest font-[orbitron] text-black  h-[100%] flex justify-end items-center w-[100%] text-[54px]  text-right uppercase">
+                  <div className="w-full h-[50%] flex justify-end text-right">
+                    <motion.p
+                      animate={{
+                        color: enter ? "#fff" : "#000",
+                      }}
+                      transition={{
+                        duration: 0.4,
+                        ease: "easeInOut",
+                      }}
+                      className="tracking-widest font-[orbitron] h-[100%] flex justify-end items-center w-[100%] text-[24px] md:text-[54px] text-right uppercase"
+                    >
                       Ganesh G
-                    </p>
+                    </motion.p>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              <div className="w-full h-[70%] pt-4 flex flex-col md:flex-row md:overflow-hidden">
+                <div className="rounded-xl w-full md:w-1/2 h-[50%] md:h-full mr-0 md:mr-2 mb-2 md:mb-0">
+                  <div className="h-full">
+                    <SimpleSlider />
                   </div>
                 </div>
-              </div>
-
-              <div className=" w-full h-[70%] py-4 flex flex-row ">
-<div className=' rounded-xl bg-white w-[50%] h-full mr-2  '></div>
-<div className=' w-[50%] h-full ml-2 flex flex-col'>
-  <div className="  w-full h-[50%] rounded-xl bg-white mb-2"></div>
-  <div className="  w-full h-[50%] rounded-xl bg-white mt-2"></div>
-</div>
-
+                <div className="w-full md:w-[50%] h-[50%] md:h-full ml-0 md:ml-2 flex flex-col">
+                  <div className="w-full h-[50%] md:h-[50%] rounded-xl bg-white mb-2"></div>
+                  <div className="w-full h-[50%] md:h-[50%] rounded-xl bg-white mt-2"></div>
+                </div>
               </div>
             </div>
-            <div className=" bg-slate-700 h-full w-[35%]"></div>
+            <div className="h-full w-full md:w-[35%] flex flex-col">
+              <motion.div className="bg-white mb-2 rounded-xl h-[50%] md:h-[70%] w-full overflow-hidden">
+                <Image
+                  src={Selva}
+                  className="object-cover w-full h-full rounded-xl"
+                  alt=""
+                />
+              </motion.div>
+              <div className="bg-white mt-2 h-[50%] md:h-[30%] rounded-xl w-full"></div>
+            </div>
           </div>
-          <div className="mt-4 ">
+          <div className="mt-4">
             <ParallaxText baseVelocity={-5}>Software Developer</ParallaxText>
             <ParallaxText baseVelocity={5}>Mobile App Developer</ParallaxText>
           </div>
