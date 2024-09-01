@@ -23,6 +23,7 @@ export default function Layout({children}) {
                         <Link href="/">Home</Link>
                         <Link href="/about">About</Link>
                         <Link href="/contact">Contact</Link>
+                        <Link href="/work">Contact</Link>
                     </div>
                     {
                         children
