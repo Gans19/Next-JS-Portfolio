@@ -12,6 +12,7 @@ import img5 from "./../assets/5.png";
 import img7 from "./../assets/7.png";
 import img8 from "./../assets/8.png";
 import img9 from "./../assets/9.png";
+import Arrow from "./../assets/arrow.png";
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -32,6 +33,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import Slider from "react-slick";
+import SocialMediaIcons from "./SocialMediaIcons";
 
 // import Slider from "react-slick";
 // import Image from "next/image";
@@ -47,7 +49,6 @@ const SimpleSlider = () => {
     autoplaySpeed: 2000,
     arrows: false,
     pauseOnHover: true,
-    
   };
 
   const overlayClasses =
@@ -55,7 +56,11 @@ const SimpleSlider = () => {
 
   return (
     <div className=" bg-white w-full h-full overflow-hidden rounded-lg">
-      <Slider  adaptiveHeight={true}   {...settings} className="h-full  mt-[17%]  overflow-hidden">
+      <Slider
+        adaptiveHeight={true}
+        {...settings}
+        className="h-full  mt-[17%]  overflow-hidden"
+      >
         <div className="relative  flex justify-center items-center overflow-hidden h-full w-full">
           <Image
             src={img9}
@@ -63,10 +68,7 @@ const SimpleSlider = () => {
             className="object-contain  h-[100%] w-[100%]"
           />
           <div className={overlayClasses}>
-            <Link
-              href="/work"
-              className="text-black   text-xl font-bold"
-            >
+            <Link href="/work" className="text-black   text-xl font-bold">
               Go to work
             </Link>
           </div>
@@ -78,10 +80,7 @@ const SimpleSlider = () => {
             className="object-contain  h-[100%] w-[100%]"
           />
           <div className={overlayClasses}>
-          <Link
-              href="/work"
-              className="text-black  text-xl font-bold"
-            >
+            <Link href="/work" className="text-black  text-xl font-bold">
               Go to work
             </Link>
           </div>
@@ -93,10 +92,7 @@ const SimpleSlider = () => {
             className="object-contain  h-[100%] w-[100%]"
           />
           <div className={overlayClasses}>
-          <Link
-              href="/work"
-              className="text-black text-xl font-bold"
-            >
+            <Link href="/work" className="text-black text-xl font-bold">
               Go to work
             </Link>
           </div>
@@ -108,10 +104,7 @@ const SimpleSlider = () => {
             className="object-contain  h-[100%] w-[100%]"
           />
           <div className={overlayClasses}>
-          <Link
-              href="/work"
-              className="text-black   text-xl font-bold"
-            >
+            <Link href="/work" className="text-black   text-xl font-bold">
               Go to work
             </Link>
           </div>
@@ -123,10 +116,7 @@ const SimpleSlider = () => {
             className="object-contain  h-[100%] w-[100%]"
           />
           <div className={overlayClasses}>
-          <Link
-              href="/work"
-              className="text-black   text-xl font-bold"
-            >
+            <Link href="/work" className="text-black   text-xl font-bold">
               Go to work
             </Link>
           </div>
@@ -138,10 +128,7 @@ const SimpleSlider = () => {
             className="object-contain  h-[100%] w-[100%]"
           />
           <div className={overlayClasses}>
-          <Link
-              href="/work"
-              className="text-black text-xl font-bold"
-            >
+            <Link href="/work" className="text-black text-xl font-bold">
               Go to work
             </Link>
           </div>
@@ -153,15 +140,11 @@ const SimpleSlider = () => {
             className="object-contain  h-[100%] w-[100%]"
           />
           <div className={overlayClasses}>
-          <Link
-              href="/work"
-              className="text-black   text-xl font-bold"
-            >
+            <Link href="/work" className="text-black   text-xl font-bold">
               Go to work
             </Link>
           </div>
         </div>
-       
       </Slider>
     </div>
   );
@@ -395,28 +378,26 @@ export default function Home() {
                         <div className=" text-gray-900 ">{formatTime()}</div>
                         {/* <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 blur-lg opacity-50 rounded-xl"></div> */}
                         <div className=" mt-3 text-xl md:text-3xl font-semibold text-center  text-gray-900">
-                          {format(time,"eee, dd MMM")}
+                          {format(time, "eee, dd MMM")}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="w-full h-[50%] md:h-[50%] rounded-xl bg-white mt-2">
-                  <div className="h-full  flex w-full justify-around items-center flex-col">
-                    <h3 className=" text-4xl text-black uppercase   font-[orbitron]">Contact Me</h3>
-                    {/* <h3 className=" text-3xl text-gray-900 uppercase font-bold  font-[orbitron]">Contact Me</h3> */}
-                    <motion.div
-                    whileHover={{
-                      rotate:310,
-      scale:1.2,
-                    }}
-                    // transition={{
-                    //   duration:500,
-                    //   // easings:true,
-                    // }}
-                    className=" bg-black h-16 w-16 justify-center flex items-center  rounded-full">
-<p p className=" font-bold text-2xl">{'->'}</p>
-                    </motion.div>
-                  </div>
+                    <div className="h-full  flex w-full justify-around items-center flex-col">
+                      <h3 className=" text-4xl text-black uppercase   font-[orbitron]">
+                        Contact Me
+                      </h3>
+                      {/* <h3 className=" text-3xl text-gray-900 uppercase font-bold  font-[orbitron]">Contact Me</h3> */}
+                      <Link href={"/contact"}
+                  
+                         className="bg-white border border-black h-16 w-16 justify-center flex items-center rounded-full hover:cursor-pointer transform transition-transform duration-500 hover:rotate-[310deg] hover:scale-110"
+                     
+                      >
+                     
+                        <Image src={Arrow} alt="" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -429,7 +410,15 @@ export default function Home() {
                   alt=""
                 />
               </motion.div>
-              <div className="bg-white mt-2 h-[50%] md:h-[30%] rounded-xl w-full"></div>
+              <div className="bg-white mt-2 h-[50%] md:h-[30%] rounded-xl w-full">
+                <div className="h-full  flex w-full text-black justify-around items-center flex-col">
+                <h3 className=" text-4xl text-black uppercase   font-[orbitron]">
+                        Social Me
+                      </h3>
+<SocialMediaIcons />
+
+                </div>
+              </div>
             </div>
           </div>
           <div className="mt-4">
