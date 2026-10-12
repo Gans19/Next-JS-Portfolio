@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: next-js-portfolio
+    container_name: next-js-portfolio
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+      - PORT=8000
+      - HOSTNAME=0.0.0.0
+    restart: unless-stopped
